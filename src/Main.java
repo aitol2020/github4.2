@@ -3,12 +3,12 @@ import java.util.Random;
 public class Main {
 
     public static int bossHealth = 700;
-    public static int bossDamage = 50;
+    public static int bossDamage = 150;
     public static String bossDefence = "";
-    public static int[] heroesHealth = {260, 250, 240, 300};
-    public static int[] heroesDamage = {20, 25, 15};
+    public static int[] heroesHealth = {260, 250, 240, 300, 500, 200, 270, 230};
+    public static int[] heroesDamage = {20, 25, 15, 0, 5, 18, 30, 26};
     public static String[] heroesAttackType = {"Physical",
-            "Magical", "Kinetic", "Doctor"};
+            "Magical", "Kinetic", "Doctor", "Golem", "Lucky", "Berserk", "Thor"};
     public static int health = 10;
 
     public static void main(String[] args) {
@@ -36,11 +36,11 @@ public class Main {
     }
 
     public static void heroesHit() {
-        for (int i = 0; i < heroesDamage.length; i++) {
+        for (int i = 0; i < heroesDamage.length ; i++) {
             if (heroesHealth[i] > 0 && bossHealth > 0) {
                 if (heroesAttackType[i] == bossDefence) {
                     Random r = new Random();
-                    int coeff = r.nextInt(6) + 2; //2,3,4,5,6,7,8,9
+                    int coeff = r.nextInt(5) + 2; //2,3,4,5,6,7,8,9
                     System.out.println("Critical Damage: " +
                             heroesDamage[i] * coeff);
                     if (bossHealth - heroesDamage[i] * coeff < 0) {
@@ -100,12 +100,17 @@ public class Main {
             System.out.println("Heroes won!!!");
             return true;
         }
+
         boolean allHeroesDead = true;
         for (int i = 0; i < heroesHealth.length; i++) {
             if (heroesHealth[i] > 0) {
                 allHeroesDead = false;
                 break;
             }
+        }
+
+        if (allHeroesDead) {
+            System.out.println("Boss won!!!");
         }
         return allHeroesDead;
     }
